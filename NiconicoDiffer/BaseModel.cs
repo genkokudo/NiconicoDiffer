@@ -240,7 +240,6 @@ namespace NiconicoDiffer
                     delData = item;
                     // ファイルに追加
                     AddData("smidauto", item.SmId);
-                    break;
                 }
             }
             if (delData != null)
@@ -269,7 +268,6 @@ namespace NiconicoDiffer
                     delData = item;
                     // ファイルに追加
                     AddData("smidauto", item.SmId);
-                    break;
                 }
             }
             if (delData != null)
