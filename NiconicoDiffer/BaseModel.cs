@@ -129,7 +129,12 @@ namespace NiconicoDiffer
 
                 // 最終レス
                 item.LastRes = detailDoc.QuerySelector("last_res_body").TextContent.Trim();
-                // sm33419494
+                if (item.LastRes.Contains("\n"))
+                {
+                    // AngleSharpのバグで<last_res_body/>の時バグるので、改行コードがあったらクリア
+                    item.LastRes = string.Empty;
+                }
+
                 // 投稿者ID
                 var tempId = detailDoc.QuerySelector("user_id");
                 if(tempId == null)
