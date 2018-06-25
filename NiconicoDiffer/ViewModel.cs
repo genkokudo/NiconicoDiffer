@@ -112,6 +112,7 @@ namespace NiconicoDiffer
                     // 実行可能時に実行する処理
                     TextBox textBox = (TextBox)d;
                     model.BlockTag(textBox.Text, true);
+                    textBox.Text = string.Empty;
                 }
             );
 
