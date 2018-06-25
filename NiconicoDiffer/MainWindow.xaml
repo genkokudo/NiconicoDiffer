@@ -1,0 +1,91 @@
+﻿<Window x:Class="NiconicoDiffer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:NiconicoDiffer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <!--画面サイズ変更対応-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <local:SizeChangeAction MenuGridWidth="100" ItemTemplateWidth ="576"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.DataContext>
+        <local:ViewModel x:Name="ViewModel"/>
+    </Window.DataContext>
+    <Grid Name="MainGrid">
+        <!-- 画面分割の定義 -->
+        <Grid.ColumnDefinitions>
+            <!-- 左側 -->
+            <ColumnDefinition Width="1*"/>
+            <!-- 右側 -->
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <!-- 左側 -->
+        <DockPanel Grid.Column="0">
+            <!-- リスト -->
+            <ListBox Name="RankingListBox" ItemsSource="{Binding DataList}"  IsSynchronizedWithCurrentItem="True">
+                <!-- リストの設定変更 -->
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <!-- ウィンドウサイズ変更に連動させたい -->
+                        <UniformGrid Columns="{Binding ListColumn.Value}" IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <!-- リストに表示するアイテムのテンプレート -->
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:VideoData}">
+                        <Border Name="FilterRect" BorderBrush="Blue" BorderThickness="1" Padding="0">
+                            <DockPanel>
+                                <Image Source="{Binding Thumbnail}"/>
+                                <StackPanel Width="410">
+                                    <TextBlock Text="{Binding DisplayHead}"/>
+                                    <TextBlock>
+                                        <Hyperlink CommandParameter="{Binding Url}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.ViewVideo}">
+                                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding DisplayFoot}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <!-- 値によって表示を分岐できる -->
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsFiltered}" Value="True">
+                                <Setter TargetName="FilterRect" Property="BorderBrush" Value="Red" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <!-- 右側 -->
+        <StackPanel Grid.Column="1" Name="MenuPanel">
+            <Button Grid.Column="1" Command="{Binding GetVideos}">
+                <Label Content="GetVideos"/>
+            </Button>
+            
+            <TextBlock Height="27" Text="動画ID" Margin="0,27,0,0"/>
+            <TextBlock Height="27" Text="{Binding Path=DataList/SmId}"/>
+            <Button Grid.Column="1" Command="{Binding BlockSmId}" CommandParameter="{Binding Path=DataList/SmId}">
+                <Label Content="もう表示しない"/>
+            </Button>
+
+            <TextBlock Height="27" Text="投稿者" Margin="0,27,0,0"/>
+            <TextBlock Height="27" Text="{Binding Path=DataList/UserNickname}"/>
+            <Button Grid.Column="1" Command="{Binding BlockUser}" CommandParameter="{Binding Path=DataList/UserId}">
+                <Label Content="もう表示しない"/>
+            </Button>
+
+            <TextBlock Height="27" Text="タグ" Margin="0,27,0,0"/>
+            <TextBox Height="27" Name="BlockTagText"/>
+            <Button Grid.Column="1" Command="{Binding BlockTag}" CommandParameter="{Binding ElementName=BlockTagText}">
+                <Label Content="もう表示しない"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
