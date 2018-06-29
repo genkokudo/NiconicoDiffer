@@ -17,6 +17,9 @@
     <Window.DataContext>
         <local:ViewModel x:Name="ViewModel"/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:IsGreaterThanConverter x:Key="IsGreaterThanConverter" />
+    </Window.Resources>
     <Grid Name="MainGrid">
         <!-- 画面分割の定義 -->
         <Grid.ColumnDefinitions>
@@ -87,12 +90,23 @@
                 <Label Content="もう表示しない"/>
             </Button>
 
+            <!-- ボタン -->
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[0]}" Margin="0,5,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=0}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[1]}">
                 <i:Interaction.Triggers>
@@ -100,6 +114,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=1}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[2]}">
                 <i:Interaction.Triggers>
@@ -107,6 +131,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=2}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[3]}">
                 <i:Interaction.Triggers>
@@ -114,6 +148,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=3}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[4]}">
                 <i:Interaction.Triggers>
@@ -121,6 +165,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=4}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[5]}">
                 <i:Interaction.Triggers>
@@ -128,6 +182,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=5}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[6]}">
                 <i:Interaction.Triggers>
@@ -135,6 +199,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=6}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[7]}">
                 <i:Interaction.Triggers>
@@ -142,6 +216,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=7}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[8]}">
                 <i:Interaction.Triggers>
@@ -149,6 +233,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=8}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button Grid.Column="2" Width="90" Content="{Binding Path=DataList/Tags[9]}">
                 <i:Interaction.Triggers>
@@ -156,6 +250,16 @@
                         <local:SetTextButtonAction TargetName="BlockTagText"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataList/Tags.Count, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=9}" Value="true">
+                                <Setter  Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
 
         </StackPanel>
