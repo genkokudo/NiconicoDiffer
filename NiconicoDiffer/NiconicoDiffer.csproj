@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="SetTextButtonAction.cs" />
     <Compile Include="SizeChangeAction.cs" />
     <Compile Include="VideoData.cs" />
     <Compile Include="ViewModel.cs" />

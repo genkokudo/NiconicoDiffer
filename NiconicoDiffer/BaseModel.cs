@@ -303,7 +303,6 @@ namespace NiconicoDiffer
         private void AddData(string filename, string data)
         {
             SafeCreateDirectory(DataDirectry);
-            Console.WriteLine(data);
             File.AppendAllText($"{DataDirectry}/{filename}.dat", data + Environment.NewLine);
         }
 

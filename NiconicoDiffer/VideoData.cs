@@ -195,7 +195,7 @@ namespace NiconicoDiffer
 
             DisplayHead = $"{rank} {pubDate} {SmId} {userNickname}({userId})";
             DisplayFoot = $"再生時間：{length} 再生数：{viewCounter} コメント数：{commentNum} マイリスト数：{mylistCounter}\n{lastRes}\nタグ：{tag}";
-        }
 
+        }
     }
 }
