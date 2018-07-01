@@ -115,47 +115,51 @@ namespace NiconicoDiffer
                 // データを取得し、XMLを解析する
                 var detailDoc = await GetData($"http://ext.nicovideo.jp/api/getthumbinfo/{item.SmId}");
 
-                // 再生時間
-                item.Length = detailDoc.QuerySelector("length").TextContent.Trim();
-
-                // 再生回数
-                item.ViewCounter = detailDoc.QuerySelector("view_counter").TextContent.Trim();
-
-                // コメント数
-                item.CommentNum = detailDoc.QuerySelector("comment_num").TextContent.Trim();
-
-                // マイリス数
-                item.MylistCounter = detailDoc.QuerySelector("mylist_counter").TextContent.Trim();
-
-                // 最終レス
-                item.LastRes = detailDoc.QuerySelector("last_res_body").TextContent.Trim();
-                if (item.LastRes.Contains("\n"))
+                if (detailDoc.QuerySelector("error") == null)
                 {
-                    // AngleSharpのバグで<last_res_body/>の時バグるので、改行コードがあったらクリア
-                    item.LastRes = string.Empty;
-                }
 
-                // 投稿者ID
-                var tempId = detailDoc.QuerySelector("user_id");
-                if(tempId == null)
-                {
-                    // 公式
-                    item.UserId = detailDoc.QuerySelector("ch_id").TextContent.Trim();
-                    // 投稿者
-                    item.UserNickname = detailDoc.QuerySelector("ch_name").TextContent.Trim();
-                }
-                else
-                {
-                    item.UserId = tempId.TextContent.Trim();
-                    // 投稿者
-                    item.UserNickname = detailDoc.QuerySelector("user_nickname").TextContent.Trim();
-                }
+                    // 再生時間
+                    item.Length = detailDoc.QuerySelector("length").TextContent.Trim();
 
-                // タグ
-                item.Tags = detailDoc.QuerySelectorAll("tag").Select(tag => tag.TextContent.Trim()).ToList();
+                    // 再生回数
+                    item.ViewCounter = detailDoc.QuerySelector("view_counter").TextContent.Trim();
 
-                // 表示用情報を作成
-                item.CreateDisplay();
+                    // コメント数
+                    item.CommentNum = detailDoc.QuerySelector("comment_num").TextContent.Trim();
+
+                    // マイリス数
+                    item.MylistCounter = detailDoc.QuerySelector("mylist_counter").TextContent.Trim();
+
+                    // 最終レス
+                    item.LastRes = detailDoc.QuerySelector("last_res_body").TextContent.Trim();
+                    if (item.LastRes.Contains("\n"))
+                    {
+                        // AngleSharpのバグで<last_res_body/>の時バグるので、改行コードがあったらクリア
+                        item.LastRes = string.Empty;
+                    }
+
+                    // 投稿者ID
+                    var tempId = detailDoc.QuerySelector("user_id");
+                    if (tempId == null)
+                    {
+                        // 公式
+                        item.UserId = detailDoc.QuerySelector("ch_id").TextContent.Trim();
+                        // 投稿者
+                        item.UserNickname = detailDoc.QuerySelector("ch_name").TextContent.Trim();
+                    }
+                    else
+                    {
+                        item.UserId = tempId.TextContent.Trim();
+                        // 投稿者
+                        item.UserNickname = detailDoc.QuerySelector("user_nickname").TextContent.Trim();
+                    }
+
+                    // タグ
+                    item.Tags = detailDoc.QuerySelectorAll("tag").Select(tag => tag.TextContent.Trim()).ToList();
+
+                    // 表示用情報を作成
+                    item.CreateDisplay();
+                }
             }
 
             #endregion
@@ -240,7 +244,7 @@ namespace NiconicoDiffer
             VideoData delData = null;
             foreach (var item in DataList)
             {
-                if (item.UserId == userId)
+                if (item.UserId != null && item.UserId == userId)
                 {
                     delData = item;
                     // ファイルに追加
@@ -268,7 +272,7 @@ namespace NiconicoDiffer
             VideoData delData = null;
             foreach (var item in DataList)
             {
-                if (item.Tags.Contains(tag))
+                if (item.Tags != null && item.Tags.Contains(tag))
                 {
                     delData = item;
                     // ファイルに追加
