@@ -56,7 +56,7 @@ namespace NiconicoDiffer
             #region 動画ランキングカテゴリ総合
 
             // データを取得し、XMLを解析する
-            var doc = await GetData("http://www.nicovideo.jp/ranking/fav/hourly/all?rss=2.0");
+            var doc = await GetData("https://www.nicovideo.jp/ranking/genre/all?term=hour&rss=2.0&lang=ja-jp");
 
             // 繰り返し項目
             var listItems = doc.GetElementsByTagName("item")
@@ -117,7 +117,6 @@ namespace NiconicoDiffer
 
                 if (detailDoc.QuerySelector("error") == null)
                 {
-
                     // 再生時間
                     item.Length = detailDoc.QuerySelector("length").TextContent.Trim();
 
